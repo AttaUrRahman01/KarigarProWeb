@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KarigarPro</title>
+<link rel="icon" type="image/jpeg" href="favicon.jpg">
+<meta name="description" content="KarigarPro">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--walnut:#5D4037;--deep:#2B1A12;--deep2:#3E2723;--amber:#FFB300;--amber2:#A85B00;--cream:#FAF2E4;--cream2:#F7EEDD;--ink:#211712;--muted:#5C4636;--green:#1E7A34;--red:#C62828;--line:#DEC9A3;--card:#fff;--shadow:0 20px 50px rgba(43,26,18,.14);--r:20px}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:var(--cream);color:var(--ink);line-height:1.6;overflow-x:hidden}
+h1,h2,h3,.serif{font-family:'Fraunces',serif;letter-spacing:-.02em}
+img{display:block;max-width:100%}
+a{text-decoration:none;color:inherit}
+.wrap{width:min(1200px,92%);margin:0 auto}
+/* NAV */
+.nav{position:sticky;top:0;z-index:50;background:rgba(43,26,18,.97);backdrop-filter:blur(10px);color:#fff;box-shadow:0 4px 24px rgba(0,0,0,.18)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:14px 0}
+.brand{display:flex;align-items:center;gap:12px;font-family:'Fraunces',serif;font-size:26px;font-weight:900}
+.brand small{display:block;font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--amber);font-weight:700}
+.logo{width:46px;height:46px;border-radius:13px;background:linear-gradient(135deg,var(--amber),var(--amber2));display:grid;place-items:center;font-size:24px;flex-shrink:0}
+.brand-logo{width:48px;height:48px;border-radius:13px;object-fit:cover;flex-shrink:0;box-shadow:0 4px 14px rgba(0,0,0,.35)}
+.links{display:flex;gap:6px;align-items:center}
+.links a{padding:10px 15px;border-radius:999px;font-size:15px;font-weight:600;color:#F3E7D3;transition:.2s}
+.links a:hover,.links a.active{background:var(--amber);color:var(--deep)}
+.cta{background:var(--amber);color:var(--deep)!important;font-weight:800!important}
+.burger{display:none;background:none;border:1px solid rgba(255,255,255,.35);color:#fff;border-radius:10px;padding:9px 13px;font-size:20px;cursor:pointer}
+@media(max-width:860px){.links{display:none;position:absolute;top:74px;left:4%;right:4%;background:#fff;color:var(--ink);flex-direction:column;align-items:stretch;padding:12px;border-radius:18px;box-shadow:var(--shadow)}.links.open{display:flex}.links a{color:var(--ink)}.burger{display:block}}
+/* HERO SLIDESHOW */
+.hero{position:relative;min-height:640px;display:flex;align-items:flex-end;color:#fff;overflow:hidden;background:var(--deep)}
+.slide{position:absolute;inset:0;opacity:0;transition:opacity 1.1s ease}
+.slide.on{opacity:1}
+.slide img{width:100%;height:100%;object-fit:cover}
+.slide::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(28,16,9,.88) 0%,rgba(28,16,9,.55) 48%,rgba(28,16,9,.10) 100%),linear-gradient(0deg,rgba(28,16,9,.75),transparent 55%)}
+.hero-in{position:relative;z-index:3;padding:90px 0 110px;width:min(1200px,92%);margin:0 auto}
+.eyebrow{display:inline-flex;gap:8px;background:rgba(255,179,0,.16);border:1px solid rgba(255,179,0,.55);color:#FFD54F;padding:7px 14px;border-radius:999px;font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+.hero h1{font-size:clamp(42px,6.4vw,78px);line-height:.98;font-weight:900;max-width:760px;margin:20px 0 18px}
+.hero h1 em{color:var(--amber);font-style:normal}
+.hero p{font-size:clamp(16px,2vw,20px);max-width:620px;color:#F7EEDD}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap;margin-top:28px}
+.btn{display:inline-flex;align-items:center;gap:9px;padding:15px 26px;border-radius:999px;font-weight:800;font-size:16px;border:none;cursor:pointer;transition:.2s}
+.btn-amber{background:var(--amber);color:var(--deep)}.btn-amber:hover{background:#FFC233;transform:translateY(-2px)}
+.btn-ghost{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.45)}
+.slide-cap{position:absolute;right:4%;bottom:108px;z-index:4;background:rgba(255,255,255,.96);color:var(--deep);padding:12px 18px;border-radius:14px;font-weight:800;box-shadow:var(--shadow)}
+.dots{position:absolute;left:50%;transform:translateX(-50%);bottom:26px;z-index:5;display:flex;gap:9px}
+.dots button{width:11px;height:11px;border-radius:50%;border:none;background:rgba(255,255,255,.45);cursor:pointer;padding:0}
+.dots button.on{background:var(--amber);width:32px;border-radius:999px}
+.arrows{position:absolute;right:4%;bottom:26px;z-index:5;display:flex;gap:9px}
+.arrows button{width:46px;height:46px;border-radius:50%;border:1px solid rgba(255,255,255,.5);background:rgba(0,0,0,.3);color:#fff;font-size:20px;cursor:pointer}
+@media(max-width:700px){.hero{min-height:560px}.slide-cap{display:none}.hero-in{padding:60px 0 90px}}
+/* STATS */
+.stats{background:var(--deep);color:#fff;margin-top:0}
+.stats-in{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+.stat{padding:26px 18px;text-align:center;border-right:1px solid rgba(255,255,255,.12)}
+.stat:last-child{border:none}.stat b{font-family:'Fraunces',serif;font-size:30px;color:var(--amber);display:block}.stat span{font-size:13.5px;color:#EADDC8}
+@media(max-width:800px){.stats-in{grid-template-columns:1fr 1fr}.stat{border-bottom:1px solid rgba(255,255,255,.12)}}
+/* SECTIONS */
+section{padding:84px 0}
+.kicker{color:var(--amber2);font-weight:800;letter-spacing:.13em;text-transform:uppercase;font-size:13px;text-align:center}
+.title{font-size:clamp(32px,4.4vw,50px);line-height:1.05;text-align:center;font-weight:900;margin:10px 0 12px}
+.sub{text-align:center;color:var(--muted);max-width:680px;margin:0 auto 42px;font-size:17px;font-weight:500}
+/* KAAM GRID */
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+@media(max-width:1000px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.grid{grid-template-columns:1fr}}
+.kaam{border-radius:22px;overflow:hidden;background:#fff;box-shadow:0 10px 30px rgba(43,26,18,.10);cursor:pointer;transition:.25s;border:1px solid var(--line)}
+.kaam:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+.kaam img{height:210px;width:100%;object-fit:cover}
+.kaam div{padding:18px}.kaam h3{font-size:22px}.kaam p{color:var(--muted);font-size:15px;font-weight:500}.kaam span{color:var(--amber2);font-weight:800;font-size:14px}
+/* APP LAYOUT */
+.alt{background:#fff}
+.split{display:grid;grid-template-columns:1.15fr .85fr;gap:28px;align-items:start}
+@media(max-width:900px){.split{grid-template-columns:1fr}}
+.panel{background:#fff;border:1px solid var(--line);border-radius:24px;padding:30px;box-shadow:0 12px 34px rgba(43,26,18,.08)}
+.alt .panel{background:var(--cream)}
+.panel h3{font-size:27px;margin-bottom:6px}.panel .hint{color:var(--muted);font-size:15px;margin-bottom:18px;font-weight:500}
+label{display:block;font-weight:700;font-size:14.5px;margin:16px 0 7px;color:var(--deep2)}
+input,select{width:100%;padding:13px 14px;border:1.5px solid #DCC7A6;border-radius:12px;font:inherit;font-size:15.5px;background:#fff;color:var(--ink)}
+input:focus,select:focus{outline:3px solid rgba(255,179,0,.35);border-color:var(--amber)}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+@media(max-width:560px){.row,.row3{grid-template-columns:1fr 1fr}}
+.chips{display:flex;flex-wrap:wrap;gap:9px}
+.chip{border:1.5px solid #D8BE93;background:#fff;padding:9px 16px;border-radius:999px;font-weight:700;cursor:pointer;font-size:14.5px}
+.chip.on{background:var(--deep);color:#fff;border-color:var(--deep)}
+.summary{position:sticky;top:96px;background:var(--deep);color:#fff;border:none}
+.summary h3{color:#fff}.summary .hint{color:#D8C7AE}
+.srow{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px dashed rgba(255,255,255,.22);font-size:16px}
+.srow.total{font-size:21px;font-weight:800;color:var(--amber);border:none}
+.big{font-family:'Fraunces',serif;font-size:44px;color:var(--amber);line-height:1.1}
+.save{width:100%;background:var(--green);color:#fff;margin-top:18px;justify-content:center;font-size:17px}
+/* MATERIAL */
+.mat{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:800px){.mat{grid-template-columns:1fr}}
+.mrow{display:flex;align-items:center;gap:14px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:14px}
+.micon{width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,var(--cream2),#EBD9B8);display:grid;place-items:center;font-size:24px;flex-shrink:0}
+.mimg{width:58px;height:58px;border-radius:14px;object-fit:cover;flex-shrink:0;border:1px solid var(--line)}
+.kaam{position:relative}.kaam.sel{outline:3px solid var(--amber);outline-offset:-3px}
+.kaam .tick{position:absolute;top:12px;right:12px;width:30px;height:30px;border-radius:50%;background:var(--amber);color:var(--deep);display:none;place-items:center;font-weight:900;z-index:2;box-shadow:0 4px 12px rgba(0,0,0,.3)}
+.kaam.sel .tick{display:grid}
+.minfo{flex:1}.minfo b{font-size:16px}.minfo small{display:block;color:var(--muted);font-size:14px;font-weight:600}
+.step{display:flex;align-items:center;gap:9px}
+.step button{width:34px;height:34px;border-radius:50%;border:1.5px solid #C9A96A;background:#FFF6DE;font-size:18px;font-weight:800;cursor:pointer;color:var(--walnut)}
+.qty{font-weight:800;min-width:22px;text-align:center}.mtotal{font-weight:800;min-width:86px;text-align:right}
+/* HISTORY / RATES */
+.search{max-width:560px;margin:0 auto 28px;display:block}
+.hist{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+@media(max-width:950px){.hist{grid-template-columns:1fr 1fr}}@media(max-width:600px){.hist{grid-template-columns:1fr}}
+.hcard{background:#fff;border:1px solid var(--line);border-radius:20px;padding:22px;box-shadow:0 8px 24px rgba(43,26,18,.07)}
+.hcard h3{font-size:21px}.meta{color:var(--muted);font-size:14px;margin:5px 0 12px}
+.green{color:var(--green);font-weight:800}.red{color:var(--red);font-weight:800}
+.del{background:none;border:none;color:var(--red);font-weight:800;cursor:pointer;font:inherit;font-size:14px;padding:0}
+.rates{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:900px){.rates{grid-template-columns:1fr 1fr}}@media(max-width:540px){.rates{grid-template-columns:1fr}}
+.rate{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px}.rate b{display:block;margin-bottom:9px;font-size:16.5px}
+.rate div{display:flex;align-items:center;gap:8px}.rate input{text-align:right}
+footer{background:var(--deep);color:#D8C7AE;padding:56px 0 30px}
+.foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:30px}
+@media(max-width:800px){.foot-grid{grid-template-columns:1fr}}
+footer h3,footer h4{color:#fff;margin-bottom:12px}footer a{display:block;padding:4px 0}
+.copy{border-top:1px solid rgba(255,255,255,.15);margin-top:34px;padding-top:20px;font-size:13.5px;text-align:center}
+.pin{width:92px;padding:6px 8px;font-size:14.5px;text-align:right;display:inline-block;border-radius:9px}
+.bbtn{background:var(--deep);color:#fff;border:none;padding:9px 16px;border-radius:999px;font-weight:800;cursor:pointer;font:inherit;font-size:13.5px}.bbtn.alt{background:#fff;color:var(--deep);border:1.5px solid var(--deep)}
+.toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(90px);background:var(--green);color:#fff;padding:14px 24px;border-radius:999px;font-weight:800;z-index:99;transition:.35s;box-shadow:var(--shadow)}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.panel.summary{background:linear-gradient(155deg,#4A2E20 0%,var(--deep) 60%,#1D110A 100%);color:#fff;border:1px solid rgba(255,179,0,.45);box-shadow:0 24px 50px rgba(43,26,18,.35)}
+.summary .srow span{color:#F3E7D3}.summary .srow b{color:#fff}
+.summary .hint{color:#EBD9B8}
+.summary .big{color:var(--amber);text-shadow:0 2px 16px rgba(255,179,0,.35)}
+.hcard{background:linear-gradient(155deg,#4A2E20 0%,var(--deep) 60%,#1D110A 100%);color:#fff;border:1px solid rgba(255,179,0,.45);box-shadow:0 18px 40px rgba(43,26,18,.30)}
+.hcard h3{color:#fff}.hcard .meta{color:#EBD9B8}
+.hcard .bbtn{background:var(--amber);color:var(--deep)}
+.hcard .bbtn.alt{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.65)}
+.hcard .del{color:#FF9A8A}.hcard .green{color:#7BD88A}.hcard .red{color:#FF9A8A}
+.rate{background:linear-gradient(155deg,#4A2E20 0%,var(--deep) 60%,#1D110A 100%);color:#fff;border:1px solid rgba(255,179,0,.45);box-shadow:0 18px 40px rgba(43,26,18,.30)}
+.rate b{color:#fff}.rate span{color:#EBD9B8;font-weight:700}
+.rate input{background:#FFF8EC;color:var(--ink);border-color:rgba(255,179,0,.55)}
+#rates .panel{background:linear-gradient(155deg,#4A2E20 0%,var(--deep) 60%,#1D110A 100%);color:#fff;border:1px solid rgba(255,179,0,.45)}
+#rates .panel h3{color:#fff}#rates .panel .hint{color:#EBD9B8}
+.search{background:#FFF8EC;border:1.5px solid #C8A165;font-weight:600}
+</style>
+</head>
+<body>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="#home"><img class="brand-logo" src="logo.jpg" alt="KarigarPro"><span>KarigarPro</span></a>
+  <button class="burger" onclick="document.getElementById('links').classList.toggle('open')" aria-label="Menu">☰</button>
+  <nav class="links" id="links">
+    <a href="#home" class="active">Home</a><a href="#kaam">Kaam</a><a href="#hisab">Naya Hisab</a><a href="#material">Material</a><a href="#purane">Purane Hisab</a><a href="#rates">Mere Rates</a><a href="#hisab" class="cta">Hisab Shuru Karo →</a>
+  </nav>
+</div></header>
+
+<!-- HERO WITH ROTATING IMAGES -->
+<div class="hero" id="home">
+  <div class="slide on"><img src="https://images.unsplash.com/photo-1618220179428-22790b461013?auto=format&fit=crop&w=1800&q=80" alt="Wardrobe design"><div class="slide-cap">Wardrobe — Premium Design</div></div>
+  <div class="slide"><img src="https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=1800&q=80" alt="Kitchen cabinets"><div class="slide-cap">Kitchen — Modern Cabinets</div></div>
+  <div class="slide"><img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1800&q=80" alt="Bed design"><div class="slide-cap">Bed — Khoobsurat Bedroom</div></div>
+  <div class="slide"><img src="https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?auto=format&fit=crop&w=1800&q=80" alt="Media wall"><div class="slide-cap">Media Wall — TV Panel</div></div>
+  <div class="hero-in">
+    <span class="eyebrow">✦ Carpenters ke liye professional hisab</span>
+    <h1>Naap lo. Hisab banao.<br><em>Bill tayyar.</em></h1>
+    <p>Wardrobe, Kitchen, Bed aur Media Wall — unchai × chorai se mazdoori, material ka kharcha, advance aur baqi balance. Sab kuch aik professional website par, desktop aur mobile dono par barabar asaan.</p>
+    <div class="hero-btns"><a class="btn btn-amber" href="#hisab">＋ Naya Hisab Shuru Karo</a><a class="btn btn-ghost" href="#kaam">Kaam Dekho ↓</a></div>
+  </div>
+  <div class="dots" id="dots"></div>
+  <div class="arrows"><button onclick="moveSlide(-1)" aria-label="Pichli image">‹</button><button onclick="moveSlide(1)" aria-label="Agli image">›</button></div>
+</div>
+
+<div class="stats"><div class="wrap stats-in">
+  <div class="stat"><b>8+</b><span>Kaam ki types</span></div>
+  <div class="stat"><b>Sq Ft</b><span>Auto mazdoori hisab</span></div>
+  <div class="stat"><b>PDF</b><span>Professional bill</span></div>
+  <div class="stat"><b>100%</b><span>Apna data, apne paas</span></div>
+</div></div>
+
+<!-- KAAM -->
+<section id="kaam"><div class="wrap">
+  <div class="kicker">Hamare Kaam</div><h2 class="title">Har kaam, sahi naap ke saath</h2>
+  <p class="sub">Kisi bhi card par click karo — wahi kaam select karke hisab wala hissa khul jayega.</p>
+  <div class="grid" id="kaamGrid"></div>
+</div></section>
+
+<!-- NAYA HISAB -->
+<section id="hisab" class="alt"><div class="wrap">
+  <div class="kicker">Calculator</div><h2 class="title">Naya Hisab</h2>
+  <p class="sub">Customer ki tafseel aur naap likho — sq ft aur mazdoori khud-ba-khud live update hogi.</p>
+  <div class="split">
+    <div class="panel">
+      <h3>Customer aur Kaam</h3><p class="hint">Saari fields Roman Urdu me saaf aur bari rakhi gayi hain.</p>
+      <label>Customer ka Naam</label><input id="cust" value="Ahmed Raza" oninput="S.cust=this.value;saveState()">
+      <label>Mobile Number</label><input id="mobile" value="0300 1234567" oninput="S.mobile=this.value;saveState()">
+      <label>Kaam Select Karo — aik se zyada bhi select kar sakte ho (misal Wardrobe + Kitchen)</label><div class="chips" id="chips"></div>
+      <div class="row"><div><label>Unchai — Feet</label><input type="number" id="uh_ft" value="7" oninput="setN('uh_ft',this.value)"></div><div><label>Unchai — Inches</label><input type="number" id="uh_in" value="3" oninput="setN('uh_in',this.value)"></div></div>
+      <div class="row"><div><label>Chorai — Feet</label><input type="number" id="ch_ft" value="6" oninput="setN('ch_ft',this.value)"></div><div><label>Chorai — Inches</label><input type="number" id="ch_in" value="0" oninput="setN('ch_in',this.value)"></div></div>
+      <div class="row"><div><label>Quantity</label><input type="number" id="qty" value="1" oninput="setN('qty',this.value)"></div><div><label>Rate (Rs / sq ft)</label><input type="number" id="rate" value="200" oninput="setN('rate',this.value)"></div></div>
+      <a class="btn btn-amber" href="#material" style="margin-top:24px;width:100%;justify-content:center">Agla Step: Material →</a>
+    </div>
+    <div class="panel summary">
+      <h3>Live Hisab</h3><p class="hint">Naap badalte hi ye hisab badal jata hai.</p>
+      <div class="big" id="sqftOut">43.5 sq ft</div>
+      <div class="srow"><span>Kaam</span><b id="kaamOut">Wardrobe</b></div>
+      <div class="srow"><span>Mazdoori</span><b id="mazOut">Rs 8,700</b></div>
+      <div class="srow"><span>Material</span><b id="matOut">Rs 17,350</b></div>
+      <div class="srow total"><span>Kul Total</span><span id="kulOut">Rs 26,050</span></div>
+      <p style="font-size:14px;color:#D8C7AE;margin-top:14px">Sheet ka andaza: <b id="sheetOut" style="color:#fff">2 sheets</b> — kul sq ft ÷ 32, sirf mashwara hai, final faisla carpenter ka.</p>
+    </div>
+  </div>
+</div></section>
+
+<!-- MATERIAL -->
+<section id="material"><div class="wrap">
+  <div class="kicker">Material</div><h2 class="title">Material ka Kharcha</h2>
+  <p class="sub">Quantity + / − se badlo, aur har material ki qeemat (Rs) bhi usi row par edit kar sakte ho — qeemat khud save ho jati hai aur total live update hota hai.</p>
+  <div class="mat" id="matGrid"></div>
+  <div class="split" style="margin-top:28px">
+    <div class="panel"><h3>Extra aur Advance</h3><p class="hint">Transport ya koi aur kharcha, aur customer se mila advance.</p>
+      <label>Extra Kharcha (Rs)</label><input type="number" id="extra" value="0" oninput="setN('extra',this.value)">
+      <label>Advance Mila (Rs)</label><input type="number" id="advance" value="10000" oninput="setN('advance',this.value)">
+    </div>
+    <div class="panel summary"><h3>Final Summary</h3>
+      <div class="srow"><span>Material Total</span><b class="fMat">Rs 17,350</b></div>
+      <div class="srow"><span>Mazdoori Total</span><b class="fMaz">Rs 8,700</b></div>
+      <div class="srow"><span>Extra</span><b class="fExtra">Rs 0</b></div>
+      <div class="srow total"><span>Kul Total</span><span class="fKul">Rs 26,050</span></div>
+      <div class="srow"><span>Baqi Balance</span><b class="fBaqi" style="color:#FF8A80">Rs 16,050</b></div>
+      <button class="btn save" onclick="saveHisab()">✓ Hisab Save Karo</button>
+      <div style="display:flex;gap:10px;margin-top:12px"><button class="bbtn" style="flex:1;background:var(--amber);color:var(--deep)" onclick="billPDF(currentBill())">⬇ PDF Bill</button><button class="bbtn alt" style="flex:1" onclick="billTXT(currentBill())">⬇ Text Bill</button></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- PURANE HISAB -->
+<section id="purane" class="alt"><div class="wrap">
+  <div class="kicker">Records</div><h2 class="title">Purane Hisab</h2>
+  <p class="sub">Save kiye hue hisab yahan rehte hain. Naam se search karo.</p>
+  <input class="search" placeholder="🔍  Customer ka naam search karo..." id="query" oninput="S.query=this.value;renderHist()">
+  <div class="hist" id="histGrid"></div>
+</div></section>
+
+<!-- RATES -->
+<section id="rates"><div class="wrap">
+  <div class="kicker">Settings</div><h2 class="title">Mere Rates</h2>
+  <p class="sub">Har carpenter apne mazdoori rates khud set karta hai — fields pehle khaali rehne ke liye banayi gayi hain, apna rate likh kar save karo.</p>
+  <div class="rates" id="ratesGrid"></div>
+  <div style="text-align:center;margin-top:28px"><button class="btn btn-amber" onclick="toast('Rates save ho gaye ✓');saveState()">Rates Save Karo</button></div>
+  <div class="panel" style="margin-top:34px"><h3>Material Prices</h3><p class="hint" style="margin:0">Shuru ki default qeematein: Lamination Sheet Rs 7,500 · UV Sheet Rs 11,000 · PVC Sheet Rs 5,500 · Press Rs 1,200 · Screw, Kabza, Dasta waghera — ye andaaze wale default rates hain — har material ki qeemat upar Materials wale hisse me usi ki row par direct edit hoti hai aur khud save ho jati hai. Data sirf tumhare device par save hota hai.</p></div>
+</div></section>
+
+<footer><div class="wrap">
+  <div class="foot-grid">
+    <div><h3>🪵 KarigarPro</h3><p>Carpenter ka asaan, professional hisab — naap, mazdoori, material aur bill, aik hi jagah.</p></div>
+    <div><h4>Sections</h4><a href="#kaam">Kaam</a><a href="#hisab">Naya Hisab</a><a href="#material">Material</a><a href="#purane">Purane Hisab</a></div>
+    <div><h4>Kaam</h4><a href="#kaam">Wardrobe</a><a href="#kaam">Kitchen Cabinet</a><a href="#kaam">Bed</a><a href="#kaam">Media Wall</a></div>
+  </div>
+  <div class="copy">© 2026 KarigarPro — Desktop aur mobile dono ke liye professional design.</div>
+</div></footer>
+<div class="toast" id="toast">Save ho gaya ✓</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+const KAAMS=[
+ {n:'Wardrobe',img:'kaam-wardrobe.jpg',d:'Almari aur wardrobe ka sq ft hisab'},
+ {n:'Kitchen Cabinet',img:'https://images.unsplash.com/photo-1556912167-f556f1f39fdf?auto=format&fit=crop&w=900&q=75',d:'Modern kitchen cabinets ka hisab'},
+ {n:'Bed',img:'https://images.unsplash.com/photo-1540518614846-7eded433c457?auto=format&fit=crop&w=900&q=75',d:'Bed aur bedroom furniture'},
+ {n:'Media Wall',img:'kaam-mediawall.jpg',d:'TV wall aur panel ka kaam'},
+ {n:'Door',img:'kaam-door.jpg',d:'Darwaze ka naap aur mazdoori'},
+ {n:'Almari',img:'kaam-almari.jpg',d:'Almari aur storage units'},
+ {n:'Showcase',img:'kaam-showcase.jpg',d:'Showcase aur display units'},
+ {n:'Table',img:'https://images.unsplash.com/photo-1530018607912-eff2daa1bac4?auto=format&fit=crop&w=900&q=75',d:'Table aur dining furniture'}];
+const MATS=[
+ {id:'lam',n:'Lamination Sheet',p:7500,u:'sheet',img:'mat-lamination.jpg'},
+ {id:'uv',n:'UV Sheet',p:11000,u:'sheet',img:'mat-uv.jpg'},
+ {id:'pvc',n:'PVC Sheet',p:5500,u:'sheet',img:'https://commons.wikimedia.org/wiki/Special:FilePath/Dura-Blue_PVC_Pipe_for_Underground_Water_Mains.JPG?width=400'},
+ {id:'press',n:'Press',p:1200,u:'sheet',img:'mat-press.jpg'},
+ {id:'screw',n:'Screw 5/8',p:450,u:'box',img:'mat-screws.jpg'},
+ {id:'keel',n:'Keel',p:400,u:'packet',img:'https://commons.wikimedia.org/wiki/Special:FilePath/Nails.jpg?width=400'},
+ {id:'kabza',n:'Hinge / Kabza',p:250,u:'pc',img:'mat-kabza.jpg'},
+ {id:'dasta',n:'Dasta / Handle',p:450,u:'pc',img:'mat-dasta.jpg'},
+ {id:'channel',n:'Drawer Channel',p:650,u:'set',img:'mat-channel.jpg'},
+ {id:'lp',n:'LP',p:300,u:'pc',img:'mat-lp.jpg'},
+ {id:'pvcp',n:'PVC Trim / Patti',p:800,u:'roll',img:'mat-pvctrim.jpg'},
+ {id:'tape',n:'Edge Tape',p:600,u:'roll',img:'https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3e/Adhesive_tapes_clear.JPG/960px-Adhesive_tapes_clear.JPG'},
+ {id:'glue',n:'Glue',p:500,u:'bottle',img:'https://commons.wikimedia.org/wiki/Special:FilePath/Pva_wood_glue.jpg?width=400'},
+ {id:'wglue',n:'Wood Glue',p:400,u:'bottle',img:'https://commons.wikimedia.org/wiki/Special:FilePath/Wood_glue_(6612809401).jpg?width=400'},
+ {id:'plug',n:'Rawal Plug',p:200,u:'packet',img:'https://commons.wikimedia.org/wiki/Special:FilePath/Duebel.jpg?width=400'},
+ {id:'light',n:'Profile Light',p:900,u:'ft',img:'mat-profilelight.jpg'}];
+let DEF={cust:'Ahmed Raza',mobile:'0300 1234567',kaam:'Wardrobe',uh_ft:7,uh_in:3,ch_ft:6,ch_in:0,qty:1,rate:200,extra:0,advance:10000,query:'',kaams:['Wardrobe'],prices:{},mats:{lam:2,uv:0,pvc:0,press:0,screw:1,keel:0,kabza:4,dasta:2,channel:0,lp:0,tape:0,glue:0,wglue:0,plug:0,light:0,pvcp:0},rates:{Wardrobe:200},saved:[{name:'Ahmed Raza',date:'31 Oct 2026',detail:'Wardrobe',total:26050,baqi:16050},{name:'Muhammad Ali',date:'28 Oct 2026',detail:'Kitchen Cabinet',total:58000,baqi:0},{name:'Usman Ghani',date:'25 Oct 2026',detail:'Bed + Almari',total:41300,baqi:11300}]};
+let S; try{S=JSON.parse(localStorage.getItem('naapkhata-web-v2'))||null}catch(e){S=null}
+if(!S||!S.kaam){S=JSON.parse(JSON.stringify(DEF))}else{S=Object.assign({},DEF,S);S.mats=Object.assign({},DEF.mats,S.mats);S.rates=Object.assign({},DEF.rates,S.rates)}
+if(!Array.isArray(S.kaams)||!S.kaams.length){S.kaams=[S.kaam||'Wardrobe']}
+S.prices=S.prices||{};MATS.forEach(m=>{if(S.prices[m.id]==null)S.prices[m.id]=m.p})
+const DEMO_BILLS={
+'Ahmed Raza|26050':{name:'Ahmed Raza',mobile:'0300 1234567',date:'31 Oct 2026',kaams:[{n:'Wardrobe',sqft:43.5,rate:200,maz:8700}],naap:'7 ft 3 in x 6 ft 0 in',qty:1,mats:[{n:'Lamination Sheet',q:2,u:'sheet',p:7500,t:15000},{n:'Screw 5/8',q:1,u:'box',p:450,t:450},{n:'Hinge / Kabza',q:4,u:'pc',p:250,t:1000},{n:'Dasta / Handle',q:2,u:'pc',p:450,t:900}],matTotal:17350,mazTotal:8700,extra:0,advance:10000,total:26050,baqi:16050},
+'Muhammad Ali|58000':{name:'Muhammad Ali',mobile:'',date:'28 Oct 2026',kaams:[{n:'Kitchen Cabinet',sqft:60,rate:250,maz:15000}],naap:'10 ft 0 in x 6 ft 0 in',qty:1,mats:[{n:'UV Sheet',q:2,u:'sheet',p:11000,t:22000},{n:'Lamination Sheet',q:2,u:'sheet',p:7500,t:15000},{n:'Drawer Channel',q:4,u:'set',p:650,t:2600},{n:'Profile Light',q:2,u:'ft',p:900,t:1800},{n:'Hinge / Kabza',q:4,u:'pc',p:250,t:1000},{n:'Edge Tape',q:1,u:'roll',p:600,t:600}],matTotal:43000,mazTotal:15000,extra:0,advance:58000,total:58000,baqi:0},
+'Usman Ghani|41300':{name:'Usman Ghani',mobile:'',date:'25 Oct 2026',kaams:[{n:'Bed',sqft:48,rate:200,maz:9600},{n:'Almari',sqft:35,rate:200,maz:7000}],naap:'8 ft 0 in x 6 ft 0 in',qty:1,mats:[{n:'Lamination Sheet',q:2,u:'sheet',p:7500,t:15000},{n:'PVC Sheet',q:1,u:'sheet',p:5500,t:5500},{n:'Press',q:1,u:'sheet',p:1200,t:1200},{n:'Hinge / Kabza',q:4,u:'pc',p:250,t:1000},{n:'Dasta / Handle',q:2,u:'pc',p:450,t:900},{n:'Screw 5/8',q:1,u:'box',p:450,t:450},{n:'Drawer Channel',q:1,u:'set',p:650,t:650}],matTotal:24700,mazTotal:16600,extra:0,advance:30000,total:41300,baqi:11300}};
+if(Array.isArray(S.saved))S.saved.forEach(hx=>{if(!hx.bill){let d=DEMO_BILLS[hx.name+'|'+hx.total];if(d)hx.bill=JSON.parse(JSON.stringify(d))}});
+
+const num=v=>{let n=parseFloat(v);return isNaN(n)?0:n}, fmt=n=>'Rs '+Math.round(n).toLocaleString('en-US'), r2=n=>Math.round(n*100)/100;
+const sqft=()=>(num(S.uh_ft)+num(S.uh_in)/12)*(num(S.ch_ft)+num(S.ch_in)/12)*Math.max(1,num(S.qty));
+const maz=()=>sqft()*S.kaams.reduce((t,k)=>t+(num(S.rates[k])>0?num(S.rates[k]):num(S.rate)),0);
+const effP=m=>num(S.prices[m.id]);
+const matTotal=()=>MATS.reduce((t,m)=>t+effP(m)*num(S.mats[m.id]),0);
+const kul=()=>matTotal()+maz()+num(S.extra);
+function saveState(){try{localStorage.setItem('naapkhata-web-v2',JSON.stringify(S))}catch(e){} renderTotals()}
+function setN(f,v){S[f]=num(v);saveState()}
+function toast(msg){let t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2400)}
+function renderKaam(){document.getElementById('kaamGrid').innerHTML=KAAMS.map(k=>`<article class="kaam ${S.kaams.includes(k.n)?'sel':''}" onclick="toggleKaam('${k.n}')"><span class="tick">✓</span><img src="${k.img}" alt="${k.n}" loading="lazy"><div><h3>${k.n}</h3><p>${k.d}</p><span>${S.kaams.includes(k.n)?'Selected ✓ — hatane ke liye dobara click karo':'Select karo →'}</span></div></article>`).join('')}
+function renderChips(){let all=[...KAAMS.map(k=>k.n),'Custom Kaam'];document.getElementById('chips').innerHTML=all.map(k=>`<button class="chip ${S.kaams.includes(k)?'on':''}" onclick="toggleKaam('${k}',true)">${S.kaams.includes(k)?'✓ ':''}${k}</button>`).join('')}
+function toggleKaam(k,stay){let i=S.kaams.indexOf(k);if(i>=0){if(S.kaams.length===1){toast('Kam az kam aik kaam select rehna chahiye');return}S.kaams.splice(i,1)}else{S.kaams.push(k)}S.kaam=S.kaams[0];renderChips();renderKaam();saveState();if(!stay)document.getElementById('hisab').scrollIntoView({behavior:'smooth'})}
+function renderMats(){document.getElementById('matGrid').innerHTML=MATS.map(m=>{let q=num(S.mats[m.id]);return `<div class="mrow"><img class="mimg" src="${m.img}" alt="${m.n}" loading="lazy"><div class="minfo"><b>${m.n}</b><small>Rs <input class="pin" type="number" value="${effP(m)}" oninput="setPrice('${m.id}',this.value)"> / ${m.u}</small></div><div class="step"><button onclick="mq('${m.id}',-1)">−</button><span class="qty">${q}</span><button onclick="mq('${m.id}',1)">+</button></div><div class="mtotal" id="lt-${m.id}">${fmt(effP(m)*q)}</div></div>`}).join('')}
+function setPrice(id,v){S.prices[id]=num(v);let m=MATS.find(x=>x.id===id);let lt=document.getElementById('lt-'+id);if(lt&&m)lt.textContent=fmt(effP(m)*num(S.mats[id]));saveState()}
+function mq(id,d){S.mats[id]=Math.max(0,num(S.mats[id])+d);renderMats();saveState()}
+function renderTotals(){let s=sqft();let el=id=>document.getElementById(id);if(el('sqftOut'))el('sqftOut').textContent=r2(s)+' sq ft'+(S.kaams.length>1?' × '+S.kaams.length+' kaam':'');if(el('kaamOut'))el('kaamOut').textContent=S.kaams.join(', ')+' ('+S.kaams.length+' kaam)';if(el('mazOut'))el('mazOut').textContent=fmt(maz());if(el('matOut'))el('matOut').textContent=fmt(matTotal());if(el('kulOut'))el('kulOut').textContent=fmt(kul());if(el('sheetOut'))el('sheetOut').textContent=Math.ceil(s*S.kaams.length/32)+' sheets';document.querySelectorAll('.fMat').forEach(e=>e.textContent=fmt(matTotal()));document.querySelectorAll('.fMaz').forEach(e=>e.textContent=fmt(maz()));document.querySelectorAll('.fExtra').forEach(e=>e.textContent=fmt(num(S.extra)));document.querySelectorAll('.fKul').forEach(e=>e.textContent=fmt(kul()));document.querySelectorAll('.fBaqi').forEach(e=>e.textContent=fmt(kul()-num(S.advance)))}
+function renderHist(){let q=(S.query||'').toLowerCase();let rows=S.saved.filter(h=>!q||h.name.toLowerCase().includes(q));document.getElementById('histGrid').innerHTML=rows.length?rows.map((h,i)=>`<div class="hcard"><h3>${h.name}</h3><div class="meta">${h.date} · ${h.detail}</div><div>Kul: <b>${fmt(h.total)}</b></div><div>Baqi: <span class="${h.baqi>0?'red':'green'}">${fmt(h.baqi)}</span></div><div style="margin-top:14px;display:flex;gap:9px;flex-wrap:wrap;align-items:center"><button class="bbtn" onclick="billPDF(S.saved[${S.saved.indexOf(h)}])">⬇ PDF Bill</button><button class="bbtn alt" onclick="billTXT(S.saved[${S.saved.indexOf(h)}])">Text Bill</button><button class="del" onclick="delHist(${S.saved.indexOf(h)})">Delete</button></div></div>`).join(''):'<p style="color:var(--muted)">Koi hisab nahi mila.</p>'}
+function delHist(i){S.saved.splice(i,1);renderHist();saveState();toast('Hisab delete ho gaya')}
+function todayStr(){return new Date().toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'})}
+function rateFor(k){return num(S.rates[k])>0?num(S.rates[k]):num(S.rate)}
+function currentBill(){let s=sqft();return {name:S.cust||'Customer',mobile:S.mobile||'',date:todayStr(),kaams:S.kaams.map(k=>({n:k,sqft:r2(s),rate:rateFor(k),maz:Math.round(s*rateFor(k))})),naap:(num(S.uh_ft)+' ft '+(num(S.uh_in)+' in x '+num(S.ch_ft)+' ft '+num(S.ch_in)+' in')),qty:num(S.qty),mats:MATS.filter(m=>num(S.mats[m.id])>0).map(m=>({n:m.n,q:num(S.mats[m.id]),u:m.u,p:effP(m),t:effP(m)*num(S.mats[m.id])})),matTotal:matTotal(),mazTotal:Math.round(maz()),extra:num(S.extra),advance:num(S.advance),total:kul(),baqi:kul()-num(S.advance)}}
+function saveHisab(){let b=currentBill();S.saved.unshift({name:b.name,date:b.date,detail:S.kaams.join(' + '),total:b.total,baqi:b.baqi,bill:b});renderHist();saveState();toast('Hisab save ho gaya ✓');document.getElementById('purane').scrollIntoView({behavior:'smooth'})}
+function billLines(h){let b=h.bill||null;if(!b&&h.kaams&&h.mats)b=h;let L=[];L.push('KarigarPro');L.push('Carpenter ka Hisab Bill');L.push('----------------------------------------');
+if(!b){L.push('Customer: '+h.name);L.push('Date: '+h.date);L.push('Kaam: '+h.detail);L.push('');L.push('Kul Total: '+fmt(h.total));L.push('Baqi Balance: '+fmt(h.baqi));return L}
+L.push('Customer: '+b.name);if(b.mobile)L.push('Mobile: '+b.mobile);L.push('Date: '+b.date);L.push('');L.push('KAAM (Naap: '+b.naap+', Qty: '+b.qty+')');
+b.kaams.forEach(k=>{L.push('- '+k.n+': '+k.sqft+' sq ft x Rs '+k.rate+' = '+fmt(k.maz))});L.push('Mazdoori Total: '+fmt(b.mazTotal));L.push('');
+if(b.mats.length){L.push('MATERIAL:');b.mats.forEach(m=>{L.push('- '+m.n+': '+m.q+' '+(m.u||'')+' x '+fmt(m.p)+' = '+fmt(m.t))})}else{L.push('MATERIAL: koi material nahi')}
+L.push('Material Total: '+fmt(b.matTotal));L.push('');L.push('----------------------------------------');
+L.push('Material Total:  '+fmt(b.matTotal));L.push('Mazdoori Total:  '+fmt(b.mazTotal));L.push('Extra Kharcha:   '+fmt(b.extra));L.push('KUL TOTAL:       '+fmt(b.total));L.push('Advance Mila:    '+fmt(b.advance));L.push('BAQI BALANCE:    '+fmt(b.baqi));L.push('----------------------------------------');L.push('Shukriya! - KarigarPro');return L}
+function billFile(h,ext){return 'KarigarPro-Bill-'+(h.name||'Customer').replace(/[^a-z0-9]+/gi,'-')+'.'+ext}
+function billTXT(h){let txt=billLines(h).join('\n');let a=document.createElement('a');a.href=URL.createObjectURL(new Blob([txt],{type:'text/plain'}));a.download=billFile(h,'txt');a.click();setTimeout(()=>URL.revokeObjectURL(a.href),4000);toast('Text bill download ho gaya ✓')}
+function billPDF(h){let lines=billLines(h);
+if(window.jspdf&&window.jspdf.jsPDF){let doc=new window.jspdf.jsPDF();doc.setFillColor(43,26,18);doc.rect(0,0,210,26,'F');doc.setTextColor(255,179,0);doc.setFont('helvetica','bold');doc.setFontSize(18);doc.text('KarigarPro',14,16);doc.setTextColor(30,30,30);doc.setFont('courier','normal');doc.setFontSize(11);let y=38;lines.slice(2).forEach(ln=>{if(y>282){doc.addPage();y=20}doc.text(ln,14,y);y+=6.2});doc.save(billFile(h,'pdf'));toast('PDF bill download ho gaya ✓')}
+else{let w=window.open('','_blank');w.document.write('<pre style="font-family:monospace;font-size:14px;padding:24px">'+lines.join('\n')+'</pre>');w.document.close();w.focus();w.print();toast('Print khul gaya - Save as PDF select karo')}}
+function renderRates(){let all=[...KAAMS.map(k=>k.n),'Custom Kaam'];document.getElementById('ratesGrid').innerHTML=all.map(k=>`<div class="rate"><b>${k}</b><div><span>Rs</span><input type="number" placeholder="Khaali — apna rate likho" value="${S.rates[k]??''}" onchange="S.rates['${k}']=this.value===''? '' : num(this.value);saveState()"><span>/ sq ft</span></div></div>`).join('')}
+/* SLIDESHOW */
+let cur=0;const slides=document.querySelectorAll('.slide');const dots=document.getElementById('dots');
+slides.forEach((_,i)=>{let b=document.createElement('button');b.onclick=()=>show(i);dots.appendChild(b)});
+function show(i){cur=(i+slides.length)%slides.length;slides.forEach((s,j)=>s.classList.toggle('on',j===cur));dots.querySelectorAll('button').forEach((d,j)=>d.classList.toggle('on',j===cur))}
+function moveSlide(d){show(cur+d);resetTimer()}
+let timer=setInterval(()=>show(cur+1),4500);function resetTimer(){clearInterval(timer);timer=setInterval(()=>show(cur+1),4500)}
+/* init form values */
+['cust','mobile'].forEach(id=>document.getElementById(id).value=S[id]||'');
+['uh_ft','uh_in','ch_ft','ch_in','qty','rate','extra','advance'].forEach(id=>{let e=document.getElementById(id);if(e)e.value=S[id]});
+renderKaam();renderChips();renderMats();renderHist();renderRates();renderTotals();show(0);
+document.querySelectorAll('.links a').forEach(a=>a.addEventListener('click',()=>document.getElementById('links').classList.remove('open')));
+</script>
+</body>
+</html>
